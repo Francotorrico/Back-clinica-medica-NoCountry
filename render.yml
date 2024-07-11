@@ -1,29 +1,20 @@
 services:
-  app:
-    type: web
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: spring-medicos-app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/nocountry-db
-      SPRING_DATASOURCE_USERNAME: nocountry
-      SPRING_DATASOURCE_PASSWORD: password
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
-      SPRING_JPA_SHOW_SQL: "true"
-      SPRING_DOC_SWAGGER_UI_PATH: /swagger-ui.html
+  - type: pserv
+    name: mysql
+    plan: standard
+    env: docker
+    autoDeploy: false
+    disk:
+      name: mysql
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: mydatabase
+      - key: MYSQL_USER
+        value: myuser
+      - key: MYSQL_PASSWORD
+        generateValue: true
 
-  mysql:
-    type: private-service
-    instance:
-      name: my-mysql-instance
-      plan: free
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: nocountry-db
-      MYSQL_USER: nocountry
-      MYSQL_PASSWORD: password
