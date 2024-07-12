@@ -7,7 +7,7 @@ services:
     disk:
       name: mysql
       mountPath: /var/lib/mysql
-      sizeGB: 10
+      sizeMB: 300
     envVars:
       - key: MYSQL_ROOT_PASSWORD
         generateValue: true
