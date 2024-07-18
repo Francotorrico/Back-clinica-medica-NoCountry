@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: spring-medicos-app
+    env: java
+    buildCommand: ./mvnw package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: PORT
+        value: 8080

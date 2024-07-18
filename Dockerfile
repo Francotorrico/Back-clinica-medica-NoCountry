@@ -1,15 +1,11 @@
-FROM mysql:8
+# Usa una imagen de Java 17 como base
+FROM openjdk:17-alpine
 
-ENV MYSQL_ROOT_PASSWORD=rootpassword
-ENV MYSQL_DATABASE=nocountry-db
-ENV MYSQL_USER=nocountry
-ENV MYSQL_PASSWORD=password
+# Copia el archivo JAR de tu aplicación al contenedor
+COPY target/medical-0.0.1-SNAPSHOT.jar app.jar
 
-# Puerto expuesto por MySQL (opcional, dependiendo de tus necesidades)
-EXPOSE 3306
+# Expone el puerto en el que tu aplicación escucha
+EXPOSE 8080
 
-# Opcional: Copia el archivo custom.cnf si necesitas configuraciones personalizadas
-COPY custom.cnf /etc/mysql/conf.d/custom.cnf
-
-# Volumen para persistir los datos de MySQL
-VOLUME /var/lib/mysql
+# Comando para ejecutar la aplicación cuando el contenedor se inicia
+CMD ["java", "-jar", "app.jar"]
