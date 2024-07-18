@@ -3,7 +3,7 @@ services:
     name: spring-medicos-app
     env: java
     buildCommand: ./mvnw package -DskipTests
-    startCommand: java -jar target/*.jar
+    startCommand: java -jar target/medical-0.0.1-SNAPSHOT.jar
     envVars:
       - key: PORT
         value: 8080
